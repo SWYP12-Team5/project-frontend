@@ -49,6 +49,9 @@ export default antfu({
   nextjs: true,
   vue: false,
   gitignore: true,
+  ignores: [
+    'mise.toml',
+  ],
   formatters: {
     css: true, // CSS, LESS, SCSS 포맷팅 (Prettier 사용)
     html: true, // HTML 포맷팅
