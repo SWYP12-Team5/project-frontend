@@ -1,18 +1,67 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import antfu from '@antfu/eslint-config';
+import pluginQuery from '@tanstack/eslint-plugin-query';
+import betterTailwindcss from 'eslint-plugin-better-tailwindcss';
 
-const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ]),
-]);
+const tailwindConfig = {
+  name: 'tailwind-config',
+  files: ['**/*.tsx', '**/*.jsx'],
 
-export default eslintConfig;
+  plugins: {
+    'better-tailwindcss': betterTailwindcss,
+  },
+
+  settings: {
+    'better-tailwindcss': {
+      // Tailwind v4: CSS 파일 경로
+      entryPoint: 'app/globals.css',
+    },
+  },
+
+  rules: {
+    // Stylistic 규칙 (경고)
+    'better-tailwindcss/multiline': 'warn',
+    'better-tailwindcss/sort-classes': 'warn',
+    'better-tailwindcss/no-duplicate-classes': 'warn',
+    'better-tailwindcss/enforce-consistent-variable-syntax': 'warn',
+    'better-tailwindcss/no-unnecessary-whitespace': 'warn',
+
+    // Correctness 규칙 (에러)
+    'better-tailwindcss/no-unregistered-classes': 'error',
+    'better-tailwindcss/no-conflicting-classes': 'error',
+  },
+};
+
+const tanstackQueryConfig = {
+  name: '@tanstack/query',
+  files: ['src/**/*.{ts,tsx}'],
+  plugins: {
+    '@tanstack/query': pluginQuery,
+  },
+  rules: pluginQuery.configs.recommended.rules,
+};
+
+export default antfu({
+  stylistic: {
+    semi: true,
+    quotes: 'single',
+  },
+  react: true,
+  nextjs: true,
+  vue: false,
+  gitignore: true,
+  formatters: {
+    css: true, // CSS, LESS, SCSS 포맷팅 (Prettier 사용)
+    html: true, // HTML 포맷팅
+    markdown: 'prettier', // Markdown 포맷팅
+  },
+  rules: {
+    'n/prefer-global/process': 'off',
+  },
+  languageOptions: {
+    globals: {
+      process: 'readonly',
+      __dirname: 'readonly',
+      __filename: 'readonly',
+    },
+  },
+}, tailwindConfig, tanstackQueryConfig);
