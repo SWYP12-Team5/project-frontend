@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# mise 프로젝트 초기 설정 가이드
 
-## Getting Started
+## 1️⃣ mise 활성화 (최초 1회만)
 
-First, run the development server:
+**zsh (macOS 기본, 대부분의 Linux)**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**bash (일부 Linux, Git Bash)**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+source ~/.bashrc
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> 💡 현재 쉘 확인: `echo $SHELL`
 
-## Learn More
+## 2️⃣ 프로젝트 신뢰하기
 
-To learn more about Next.js, take a look at the following resources:
+<img width="755" height="98" alt="Image" src="https://github.com/user-attachments/assets/f70939bf-3c20-4747-b7c5-ac50b976c9e7" />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+프로젝트 진입 시 **`mise.toml are not trusted.`** 에러가 나타나면:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cd your-project
+mise trust
+```
 
-## Deploy on Vercel
+## 3️⃣ 도구 설치
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**macOS**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+brew install mise
+```
+
+**Windows (Scoop 권장)**
+
+```powershell
+# Scoop이 없다면 먼저 설치
+irm get.scoop.sh | iex
+
+# mise 설치
+scoop install mise
+```
+
+**Windows (winget 대안)**
+
+```powershell
+winget install jdx.mise
+```
+
+## 4️⃣ 문제 해결
+
+설정이 제대로 되었는지 확인:
+
+```bash
+mise doctor
+```
+
+<img width="401" height="21" alt="Image" src="https://github.com/user-attachments/assets/a4db4ec8-9c54-4534-83e5-efae0bc2cd19" />
+
+✅ 위의 이미지가 보여야 정상입니다.
+
+---
+
+## 📚 자세한 내용
+
+- [**mise 공식 문서**](https://mise.jdx.dev/)
+- [**mise trust 명령어**](https://mise.jdx.dev/cli/trust.html)
+- [**문제 해결 가이드**](https://mise.jdx.dev/troubleshooting.html)
