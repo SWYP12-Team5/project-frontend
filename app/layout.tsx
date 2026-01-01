@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { MSWInit } from '@/src/app/msw-init';
 import { QueryProvider } from '@/src/app/query-provider';
 import './globals.css';
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           antialiased
         `}
       >
+        <MSWInit />
         <QueryProvider>
           {children}
         </QueryProvider>
