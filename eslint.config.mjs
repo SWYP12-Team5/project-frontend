@@ -64,6 +64,8 @@ export default antfu({
   ignores: [
     'mise.toml',
     'public/',
+    '.husky',
+    'vitest.shims.d.ts',
   ],
   formatters: {
     css: true, // CSS, LESS, SCSS 포맷팅 (Prettier 사용)
