@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { mockProducts } from '@/src/mocks/fixtures';
+import { mockProducts } from '@/mocks/fixtures';
 
 export const productHandlers = [
   // 상품 목록
