@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { mockAuthToken, mockUsers } from '@/src/shared/lib/mocks/fixtures';
+import { mockAuthToken, mockUsers } from '@/src/mocks/fixtures';
 
 export const authHandlers = [
   // 로그인

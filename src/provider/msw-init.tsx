@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { ENV } from '@/src/shared/config/environment';
+import { ENV } from '@/src/utils';
 
 export function MSWInit() {
   useEffect(() => {
@@ -13,7 +13,7 @@ export function MSWInit() {
         return;
       }
 
-      const { worker } = await import('@/src/shared/lib/mocks/browser');
+      const { worker } = await import('@/src/mocks/browser');
       worker.start({ onUnhandledRequest: 'bypass' });
     };
 

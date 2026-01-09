@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
-import { getQueryClient } from '@/src/shared/lib/utils/index';
+import { getQueryClient } from '@/src/utils';
 
 interface QueryProviderProps {
   children: ReactNode;

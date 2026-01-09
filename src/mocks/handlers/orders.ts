@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { mockOrders } from '@/src/shared/lib/mocks/fixtures';
+import { mockOrders } from '@/src/mocks/fixtures';
 
 export const orderHandlers = [
   // 주문 목록

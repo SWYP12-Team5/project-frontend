@@ -15,7 +15,7 @@ const tailwindConfig = {
   settings: {
     'better-tailwindcss': {
       // Tailwind v4: CSS 파일 경로
-      entryPoint: 'app/globals.css',
+      entryPoint: 'src/styles/globals.css',
     },
   },
 
