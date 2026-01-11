@@ -16,7 +16,7 @@ export default function Home() {
       >
         <Image
           className="dark:invert"
-          src="/next.svg"
+          src="/default-avatar.png"
           alt="Next.js logo"
           width={100}
           height={20}
@@ -32,7 +32,7 @@ export default function Home() {
             dark:text-zinc-50
           `}
           >
-            To get started, edit the page.tsx file.
+            To get started, unibusk service
           </h1>
           <p className={`
             max-w-md text-lg leading-8 text-zinc-600

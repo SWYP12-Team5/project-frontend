@@ -1,0 +1,44 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Preview 배포 (PR)
+      - name: Deploy Preview
+        if: github.event.pull_request.state == 'opened'
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run preview -- --name unibusk-preview-${{ github.event.pull_request.number }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      
+      # Production 배포 (PR Merge)
+      - name: Deploy Production
+        if: github.event.pull_request.merged == true
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      
+      # 배포 결과 요약
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo "## 🚀 Deployment Status" >> $GITHUB_STEP_SUMMARY
+          echo "| Type | Status | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|-----|" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ github.event.pull_request.state }}" == "opened" ]; then
+            echo "| Preview | ${{ job.status }} | https://unibusk-preview-${{ github.event.pull_request.number }}.workers.dev |" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+            echo "| Production | ${{ job.status }} | https://unibusk.workers.dev |" >> $GITHUB_STEP_SUMMARY
+          fi

@@ -67,6 +67,7 @@ export default antfu({
     '.husky',
     'vitest.shims.d.ts',
     '*.md',
+    '.github/*',
   ],
   formatters: {
     css: true, // CSS, LESS, SCSS 포맷팅 (Prettier 사용)
