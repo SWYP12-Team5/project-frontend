@@ -13,15 +13,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
       - name: Deploy Preview
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run preview -- --name unibusk-preview-${{ github.event.pull_request.number }}
+        run: pnpm run preview -- --name unibusk-preview-${{ github.event.pull_request.number }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Preview Summary
+      
+      - name: Deployment Summary
         if: always()
         run: |
           echo "## 🚀 Deployment Status" >> $GITHUB_STEP_SUMMARY
@@ -34,19 +45,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
       - name: Deploy Production
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run deploy
+        run: pnpm run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Production Summary
+      
+      - name: Deployment Summary
         if: always()
         run: |
           echo "## 🚀 Deployment Status" >> $GITHUB_STEP_SUMMARY
           echo "| Type | Status | URL |" >> $GITHUB_STEP_SUMMARY
           echo "|------|--------|-----|" >> $GITHUB_STEP_SUMMARY
           echo "| Production | ${{ job.status }} | [https://unibusk.workers.dev](https://unibusk.workers.dev) |" >> $GITHUB_STEP_SUMMARY
-
